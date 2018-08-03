@@ -157,7 +157,7 @@ public class ARSCDecoder {
                 HashMap<String, String> fileMapping = config.mOldFileMapping;
                 List<String> keepFileNames = new ArrayList<String>();
                 //这里面为了兼容以前，也需要用以前的文件名前缀，即res混淆成什么
-                String resRoot = TypedValue.RES_FILE_PATH;
+                String resRoot = config.getResFilePath();
                 for (String name : fileMapping.values()) {
                     int dot = name.indexOf("/");
                     if (dot == -1) {
@@ -182,7 +182,7 @@ public class ARSCDecoder {
             } else {
                 for (int i = 0; i < resFiles.length; i++) {
                     //这里也要用linux的分隔符,如果普通的话，就是r
-                    mOldFileName.put("res" + "/" + resFiles[i].getName(), TypedValue.RES_FILE_PATH + "/" + mProguardBuilder.getReplaceString());
+                    mOldFileName.put("res" + "/" + resFiles[i].getName(), config.getResFilePath() + "/" + mProguardBuilder.getReplaceString());
                 }
             }
             generalFileResMapping();

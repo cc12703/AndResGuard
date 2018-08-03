@@ -316,7 +316,7 @@ public class ResourceApkBuilder {
         File destResDir = new File(mOutDir.getAbsolutePath(), "res");
         //添加修改后的res文件
         if (!config.mKeepRoot && FileOperation.getlist(destResDir) == 0) {
-            destResDir = new File(mOutDir.getAbsolutePath(), TypedValue.RES_FILE_PATH);
+            destResDir = new File(mOutDir.getAbsolutePath(), config.getResFilePath());
         }
 
         /*

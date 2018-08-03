@@ -88,6 +88,9 @@ public class ApkDecoder {
         }
     }
 
+
+
+
     private void ensureFilePath() throws IOException {
         Utils.cleanDir(mOutDir);
 
@@ -97,7 +100,7 @@ public class ApkDecoder {
         dealWithCompressConfig();
         //将res混淆成r
         if (!config.mKeepRoot) {
-            mOutResFile = new File(mOutDir.getAbsolutePath() + File.separator + TypedValue.RES_FILE_PATH);
+            mOutResFile = new File(mOutDir.getAbsolutePath() + File.separator + config.getResFilePath());
         } else {
             mOutResFile = new File(mOutDir.getAbsolutePath() + File.separator + "res");
         }

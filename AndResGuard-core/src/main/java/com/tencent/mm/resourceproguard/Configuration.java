@@ -1,5 +1,6 @@
 package com.tencent.mm.resourceproguard;
 
+import com.tencent.mm.util.TypedValue;
 import com.tencent.mm.util.Utils;
 
 import org.w3c.dom.Document;
@@ -16,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.TypeVariable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.regex.Matcher;
@@ -41,6 +43,7 @@ public class Configuration {
     private static final String SIGN_ISSUE              = "sign";
     private static final String ATTR_7ZIP               = "seventzip";
     private static final String ATTR_KEEPROOT           = "keeproot";
+    private static final String ATTR_RESFILEPATH        = "resfilepath";
     private static final String ATTR_SIGNFILE           = "metaname";
     private static final String ATTR_SIGNFILE_PATH      = "path";
     private static final String ATTR_SIGNFILE_KEYPASS   = "keypass";
@@ -58,6 +61,7 @@ public class Configuration {
     private final Pattern MAP_PATTERN = Pattern.compile("\\s+(.*)->(.*)");
     public boolean mUse7zip        = true;
     public boolean mKeepRoot       = false;
+    private String mResFilePath;
     public String  mMetaName       = "META-INF";
     public boolean mUseSignAPK     = false;
     public boolean mUseKeepMapping = false;
@@ -131,6 +135,7 @@ public class Configuration {
         }
         mUse7zip = param.use7zip;
         mKeepRoot = param.keepRoot;
+        mResFilePath = param.resfilePath;
         mMetaName = param.metaName;
         for (String item : param.compressFilePattern) {
             mUseCompress = true;
@@ -139,6 +144,11 @@ public class Configuration {
         this.m7zipPath = param.sevenZipPath;
         this.mZipalignPath = param.zipAlignPath;
     }
+
+    public String getResFilePath() {
+        return (mResFilePath != null)? mResFilePath : TypedValue.RES_FILE_PATH;
+    }
+
 
     private void setSignData(
       File signatureFile,
@@ -425,6 +435,9 @@ public class Configuration {
                             break;
                         case ATTR_SIGNFILE:
                             mMetaName = vaule.trim();
+                            break;
+                        case ATTR_RESFILEPATH:
+                            mResFilePath = vaule.trim();
                             break;
                         default:
                             System.err.println("unknown tag " + tagName);
