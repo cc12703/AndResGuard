@@ -946,7 +946,8 @@ public class ARSCDecoder {
             mFileNameBlackList.add("prn");
             mFileNameBlackList.add("aux");
             mFileNameBlackList.add("nul");
-
+            mFileNameBlackList.add("do");
+            mFileNameBlackList.add("if");
         }
 
         public void reset() {
